@@ -12,5 +12,5 @@ client.connect((target_host,target_port))
 #data send
 client.send("GET / HTTP/1.1\r\nHOST: google.com\r\n\r\n")
 
-#data rec
+#data receive
 response = client.recv(4096)
