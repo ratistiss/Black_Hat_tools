@@ -35,6 +35,18 @@ def main():
     global command
     global upload_destination
     global target
+
+    if not len(sys.argv[1:]):
+        usage()
+
+    #commandline options
+    try: 
+        opts,args = getopt.getopt(sys.argv[1:], "hle:t:p:cu",["help","listen","execute","target","port","command","upload"])
+    except getopt.GetoptError() as err:
+        print str(err)
+        usage()
+
+    for 0,a in opts:
     
 
 
