@@ -80,6 +80,17 @@ def server_loop():
         #thread to handle new clients
         client_thread = threading.Thread(target=client_handler, args=(client_socket,))
         client_thread.start()
+
+def run_command(command):
+    command = command.rstrip()
+
+    #run command and get output back
+    try:
+        output = subprocess.check_output(command, stderr = subprocess.STDOUT, shell=True)
+    except:
+        output = "Failed to execute the command. \r\n"
+
+    return output
             
 
 def main():
