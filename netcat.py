@@ -102,6 +102,33 @@ def client_handler(client_socket):
     #check for upload
     if len(upload_destination):
         file_buffer = ""
+
+        while True:
+            data = client_socket(1024)
+
+            if not data:
+                break
+            else:
+                file_buffer += data
+
+        try:
+            file_descriptor = open(upload_destination, "wb")
+            file_descriptor.write(file_buffer)
+            file_descriptor.close()
+
+            client_socket.send("Successfully saved file to %s" % upload_destination)
+        
+        except:
+            client_socket.send("Failed to save file to %s" % upload_destination)
+
+    if len(execute):
+        output = run_command(execute)
+        client_socket.send(output)
+
+    
+
+    
+
         
             
 
