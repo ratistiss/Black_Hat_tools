@@ -91,6 +91,18 @@ def run_command(command):
         output = "Failed to execute the command. \r\n"
 
     return output
+
+
+
+def client_handler(client_socket):
+    global upload
+    global execute
+    global command
+
+    #check for upload
+    if len(upload_destination):
+        file_buffer = ""
+        
             
 
 def main():
