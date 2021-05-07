@@ -136,6 +136,9 @@ def client_handler(client_socket):
 
             #send command output back
             response = run_command(cmd_buffer)
+
+            #send back the response
+            client_socket.send(response)
             
 
     
