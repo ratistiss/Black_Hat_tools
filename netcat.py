@@ -125,6 +125,19 @@ def client_handler(client_socket):
         output = run_command(execute)
         client_socket.send(output)
 
+    if command:
+        while True:
+            #prompt
+            client_socket.send("<BHP:#> ")
+
+            cmd_buffer = ""
+            while "/n" not in cmd_buffer:
+                cmd_buffer += client_socket.recv(1024)
+
+            #send command output back
+            response = run_command(cmd_buffer)
+            
+
     
 
     
