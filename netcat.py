@@ -127,7 +127,7 @@ def client_handler(client_socket):
 
     if command:
         while True:
-            #prompt
+            #show prompt
             client_socket.send("<BHP:#> ")
 
             cmd_buffer = ""
