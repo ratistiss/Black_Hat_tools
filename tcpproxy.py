@@ -43,6 +43,14 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
 
         if len(remote_buffer):
             client_socket.send(remote_buffer)
+    
+    while True:
+        #read from local host
+        local_buffer = receive_from(client_socket)
+
+        if len(local_buffer):
+            hexdump(local_buffer)
+            local_buffer = receive_from(client_socket)
 
 
 
