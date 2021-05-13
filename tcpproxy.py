@@ -38,6 +38,17 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
         remote_buffer = receive_from(remote_socket)
         hexdump(remote_buffer)
 
+        #send to response handler
+        remote_buffer = response_handler(remote_buffer)
+
+        if len(remote_buffer):
+            client_socket.send(remote_buffer)
+
+
+
+
+            
+
 def main():
     if len(sys.argv[1:]) != 5:
         print("Usage: ./proxy.py [localhost] [localport] [remotehost] [romteport] [receive_first]")
