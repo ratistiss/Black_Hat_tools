@@ -28,6 +28,16 @@ def server_loop(local_host, local_port, remote_host, remote_port,receive_first):
         proxy_thread.start()
 
 
+
+def proxy_handler(client_socket, remote_host, remote_port, receive_first):
+    remote_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    remote_socket.connect((remote_host, remote_port))
+
+    if receive_first:
+        remote_buffer = receive_from(remote_socket)
+        hexdump(remote_buffer)
+
 def main():
     if len(sys.argv[1:]) != 5:
         print("Usage: ./proxy.py [localhost] [localport] [remotehost] [romteport] [receive_first]")
