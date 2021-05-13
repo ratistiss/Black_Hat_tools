@@ -47,7 +47,7 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
 
 
 
-            
+    
 
 def main():
     if len(sys.argv[1:]) != 5:
