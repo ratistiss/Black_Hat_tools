@@ -50,7 +50,17 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
 
         if len(local_buffer):
             hexdump(local_buffer)
-            local_buffer = receive_from(client_socket)
+            local_buffer = request_handler(local_buffer)
+            remote_socket.send(local_buffer)
+
+            print("[<==] Sent to localhost.")
+
+        # if no more data on either side close the connections
+        if not len(local_buffer) or not len(remote_buffer):
+            client_socket.close()
+            remote_socket.close()
+            print("[*] No more data. Closing connections.")
+            break
 
 
 
