@@ -2,6 +2,45 @@ import sys
 import socket
 import threading
 
+
+def hexdump(src, length=16):
+    result = []
+    digits = 4 if isinstance(src, str) else 2
+
+    for i in range(0, len(src), length):
+        s = src[i:i + length]
+        hexa = b' '.join([b"%0*X" % (digits, ord(x)) for x in s])
+        text = b''.join([x if 0x20 <= ord(x) < 0x7F else b'.' for x in s])
+        result.append(
+            b"%04X   %-*s   %s" % (i, length * (digits + 1), hexa, text))
+
+    print(b'\n'.join(result))
+
+
+def receive_from(connection):
+    buffer = b''
+
+    # We set a 2 second time-out. Depending on your target this may need
+    # to be adjusted
+    connection.settimeout(2)
+
+    try:
+
+        # keep reading into the buffer until there's no more data or we
+        # time-out
+        while True:
+            data = connection.recv(4096)
+            if not data:
+                break
+            buffer += data
+
+    except TimeoutError:
+        pass
+
+    return buffer
+
+
+
 def server_loop(local_host, local_port, remote_host, remote_port,receive_first):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -26,6 +65,7 @@ def server_loop(local_host, local_port, remote_host, remote_port,receive_first):
         proxy_thread = threading.Thread(target=proxy_handler, args=(
             client_socket, remote_host, remote_port, receive_first))
         proxy_thread.start()
+
 
 
 
