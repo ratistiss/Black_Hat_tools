@@ -39,7 +39,10 @@ def receive_from(connection):
 
     return buffer
 
+def request_handler(buffer):
+    return buffer
 
+def response_handler(buffer):
 
 def server_loop(local_host, local_port, remote_host, remote_port,receive_first):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
